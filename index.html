@@ -38,6 +38,8 @@
             audioElement.play();
         }
 
+        let clickCount = parseInt(localStorage.getItem('clickCount')) || 0;
+
         function mostrarTexto(texto, callback) {
             const textoElement = document.createElement('p');
             textoElement.textContent = texto;
@@ -137,6 +139,9 @@
 
         const btn = document.querySelector('.boton');
         btn.addEventListener('click', () => {
+            clickCount++;
+            localStorage.setItem('clickCount', clickCount.toString());
+            console.log('Click Count:', clickCount);
             btn.style.display = 'none';
             iniciarJuego();
         });
