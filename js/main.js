@@ -71,8 +71,29 @@ function mostrarOpciones(opciones, callback) {
 }
 
 function iniciarJuego() {
+    
     reproducirAudio();
-    mostrarTexto("Despertaste en el hospital abandonado ######. No recuerdas cómo llegaste. Sientes que algo te observa. Te asustas y empiezas a correr.", () => {
+    async function obtenerNombreAleatorio() {
+        try {
+          const response = await fetch('https://jsonplaceholder.typicode.com/users');
+          const data = await response.json();
+          const nombreAleatorio = data[Math.floor(Math.random() * data.length)].name;
+          return nombreAleatorio;
+        } catch (error) {
+          console.error('Error al obtener el nombre aleatorio:', error);
+          return 'Nombre Aleatorio';
+        }
+      }
+      
+      // Función para mostrar el texto con el nombre aleatorio
+      async function mostrarTextoConNombreAleatorio(texto, callback) {
+        const nombreAleatorio = await obtenerNombreAleatorio();
+        const textoModificado = texto.replace('######', nombreAleatorio);
+        mostrarTexto(textoModificado, callback);
+      }
+      
+      // Llamada inicial para mostrar el texto con el nombre aleatorio
+      mostrarTextoConNombreAleatorio("Despertaste en el hospital abandonado ######. No recuerdas cómo llegaste. Sientes que algo te observa. Te asustas y empiezas a correr.", () => {
         mostrarOpciones("Ves 2 caminos. Elige:\n1 - Izquierda \n2 - Al frente",
             (eleccion) => {
                 if (eleccion === '1') {
