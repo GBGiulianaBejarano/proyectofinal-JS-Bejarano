@@ -25,11 +25,11 @@ p{
     margin: 0 10px;  
 }
 
-div {
+/* div {
     display: flex;
     align-items: center;
     justify-content: center;
-}
+} */
 
 .iframe {
     height: 100vh;
